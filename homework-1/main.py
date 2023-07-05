@@ -14,7 +14,7 @@ with open('north_data/orders_data.csv') as file:
     orders = list(csv.reader(file))
 
 psw= os.getenv('PAS_POSTGSQL')
-psw='xStatus34'
+
 print(psw)
 
 with psycopg2.connect(
@@ -35,12 +35,7 @@ password = psw
 
         with connect_north.cursor() as curs:
             for customer in customers[1:]:
-                # s = f"""
-                # INSERT INTO public.customer(
-    	        #         customer_id, company_name, contact_name)
-    	        # VALUES ('{customer[0]}','{customer[1]}','{customer[2]}');
-    	        # """
-                # print(s)
+
                 curs.execute('INSERT INTO public.customer(customer_id, company_name, contact_name) VALUES (%s,%s,%s)',
                              (customer[0],customer[1],customer[2] ) )
 
@@ -49,11 +44,5 @@ password = psw
         with connect_north.cursor() as curs:
             for order in orders[1:]:
 
-
-                s = f"""
-                INSERT INTO public.customer(
-    	                order_id, customer_id, employee_id, order_date, ship_city)
-    	        VALUES ({order[0]},'{order[1]}',{order[2]},'{order[3]}','{order[4]}')
-    	        """
-                print(s)
-                curs.execute(s)
+                curs.execute('INSERT INTO public.orders(order_id, customer_id, employee_id, order_date, ship_city)   VALUES(%s,%s,%s,%s,%s)'
+                             ,(order[0],order[1],order[2],order[3],order[4]) )
