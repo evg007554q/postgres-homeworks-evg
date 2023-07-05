@@ -46,3 +46,5 @@ password = psw
 
                 curs.execute('INSERT INTO public.orders(order_id, customer_id, employee_id, order_date, ship_city)   VALUES(%s,%s,%s,%s,%s)'
                              ,(order[0],order[1],order[2],order[3],order[4]) )
+
+connect_north.close()

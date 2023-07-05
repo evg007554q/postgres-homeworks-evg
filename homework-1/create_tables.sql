@@ -21,3 +21,21 @@ CREATE TABLE IF NOT EXISTS public.employee
 )
 
 ;
+
+CREATE TABLE IF NOT EXISTS public.orders
+(
+    order_id integer NOT NULL,
+    customer_id character varying(5) COLLATE pg_catalog."default" NOT NULL,
+    employee_id integer NOT NULL,
+    order_date date,
+    ship_city character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT orders_pkey PRIMARY KEY (order_id),
+    CONSTRAINT customer FOREIGN KEY (customer_id)
+        REFERENCES public.customer (customer_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT employee FOREIGN KEY (employee_id)
+        REFERENCES public.employee (employee_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
