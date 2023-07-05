@@ -12,8 +12,13 @@ SELECT avg(shipped_date-order_date)  from orders where ship_country in( 'Germany
 
 -- 4. минимальную и максимальную цену среди продуктов, не снятых с продажи (таблица products, колонки unit_price, discontinued не равно 1)
 SELECT Max(unit_price), min(unit_price) from products where not discontinued =1
-
+--результат такойже -- not discontinued =1  ==  discontinued <> 1
+SELECT Max(unit_price), min(unit_price) from products where  discontinued  <>1
 
 -- 5. минимальную и максимальную цену среди продуктов, не снятых с продажи и которых имеется не меньше 20 (таблица products, колонки unit_price, units_in_stock, discontinued не равно 1)
+SELECT Max(unit_price), min(unit_price) from products where not discontinued =1
+and units_in_stock >=20
+--Вячеслав тут также запрос отработает одинаково
+-- not discontinued =1  ==  discontinued <> 1
 SELECT Max(unit_price), min(unit_price) from products where not discontinued =1
 and units_in_stock >=20

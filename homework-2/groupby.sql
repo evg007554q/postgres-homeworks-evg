@@ -26,15 +26,16 @@ group by ship_country
 having sum(freight) > 2750
 
 -- 6. страны, в которых зарегистрированы и заказчики (customers) и поставщики (suppliers) и работники (employees).
+--
 select country from public.suppliers
-union
+intersect
 select country from public.customers
-union
+intersect
 select country from public.employees
 
 -- 7. страны, в которых зарегистрированы и заказчики (customers) и поставщики (suppliers), но не зарегистрированы работники (employees).
 select country from public.suppliers
-union
+intersect
 select country from public.customers
 except
 select country from public.employees
